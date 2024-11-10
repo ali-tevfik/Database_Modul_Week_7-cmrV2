@@ -5,9 +5,11 @@
 - Additional Source: https://www.youtube.com/watch?v=miEFm1CyjfM&t=314s (in English)
 * Before doing your Github homework, let's create the following tables in PostgreSQL using Python codes. Let's write the codes to run the queries.
 
-![image](https://github.com/werhereitacademy/VIT4_Database_Modul_Week_10/assets/48917695/918d0a23-0186-4fb4-9ca5-cb1e83bda3ab)
+![image](https://github.com/user-attachments/assets/a56283aa-2e46-4cb0-86ec-eeb7837ed520)
+
   
-![image](https://github.com/werhereitacademy/VIT4_Database_Modul_Week_10/assets/48917695/1a4f719f-fb72-4d0e-bdcb-9d54cbb183d7)
+![image](https://github.com/user-attachments/assets/e5be4d85-0781-48aa-b640-1b559be37de4)
+
 
 1. Find the employees who get paid more than Rodney Weaver.
 2. Find the average, min and max salaries
