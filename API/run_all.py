@@ -3,20 +3,10 @@ import sys
 
 
 arg = sys.argv[1] if len(sys.argv) > 1 else None
-
-if arg == "2":
-    print("2")
-    apis = [
+apis = [
         ("main", 8000),
         ]
 
-else:
-    print("1")
-    apis = [
-        ("views.MentorApi", 8000),
-        ("views.LoginApi", 8001),
-        ("views.InterviewsApi", 8002)
-    ]
 
 processes = []
 

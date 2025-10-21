@@ -6,7 +6,7 @@ from datetime import datetime
 from models.TranieesModel import Trainee
 from models.ApplicationsModel import Application
 from models.MentorsModel import Mentor
-
+import time
 				
 vit_headers = [
 "zamandamgasi",	
@@ -50,16 +50,21 @@ def get_user_by_username(db, username: str):
 def addAllData(db: Session):
     print("mentors starting")
     add_mentors_from_drive(db)
+    time.sleep(2)
     print("tracking starting")
     add_project_tracking_from_drive(db)
+    time.sleep(2)
 
     apply_data = applySheet.get_all_records()
     print("apply starting")
     add_applications_from_drive(db,apply_data)
 
+    time.sleep(2)
 
     # Vit1 için: vit1Sheet mevcut headers ile çek
     vit1_headers = [h for h in vit_headers if h in vit1Sheet.row_values(1)]
+    time.sleep(2)
+
     vit1_data = vit1Sheet.get_all_records(expected_headers=vit1_headers)
     print("vit1 starting")
     add_applications_from_drive(db,vit1_data)
@@ -67,6 +72,8 @@ def addAllData(db: Session):
     
     # Vit2 için: vit2Sheet mevcut headers ile çek
     vit2_headers = [h for h in vit_headers if h in vit2Sheet.row_values(1)]
+    time.sleep(2)
+
     vit2_data = vit2Sheet.get_all_records(expected_headers=vit2_headers)
     print("vit2 starting")
     add_applications_from_drive(db,vit2_data)
