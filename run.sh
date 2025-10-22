@@ -2,19 +2,19 @@
 
 
 # 1️⃣ Proje root klasörüne git
-cd "$(dirname "$0")/API" || exit
+cd "$(dirname "$0")/backend" || exit
+
+pip install --no-cache-dir sqlalchemy-utils
 
 # 2️⃣ FastAPI server'ı arka planda başlat
 # Windows için start kullanıyoruz
 echo "Starting FastAPI server..."
-start "" python -m uvicorn LoginApi:app --reload --port 8001
-start "" python -m uvicorn MentorApi:app --reload --port 8000
-start "" python -m uvicorn InterviewsApi:app --reload --port 8002
+start "" python -m uvicorn run_all:app --reload --port 8000
 
 # 3️⃣ Server'ın açılmasını biraz bekle
-sleep 3
+sleep 15
 
 # 4️⃣ PyQt GUI scriptini çalıştır
-cd ..
+cd ../frontend || exit
 echo "Starting PyQt application..."
 python main.py

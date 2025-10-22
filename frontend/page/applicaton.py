@@ -1,13 +1,11 @@
 import sys
 import pandas as pd
 from PyQt6 import QtWidgets, uic
-from google.oauth2.service_account import Credentials
-from googleapiclient.discovery import build
 from PyQt6.QtPrintSupport import QPrinter, QPrintDialog
 from PyQt6.QtGui import QTextDocument
 from dotenv import load_dotenv
 import os
-from base_window import BaseWindow
+from Base.base_window import BaseWindow
 
 
 load_dotenv()

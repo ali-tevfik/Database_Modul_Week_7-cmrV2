@@ -8,7 +8,7 @@ token.pickle
 
 *.pyc
 *.log
-API/config/vit8-credentials.json
+backend/config/vit8-credentials.json
 
 
 
