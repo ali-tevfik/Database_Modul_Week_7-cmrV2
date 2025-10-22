@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from db import engine
+from db.db import engine
 
 
 def get_all_users_raw():

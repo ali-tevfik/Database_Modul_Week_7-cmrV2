@@ -8,12 +8,11 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-import subprocess
 from dotenv import load_dotenv
 import os
 import base64
 from email.mime.text import MIMEText
-from base_window import BaseWindow
+from Base.base_window import BaseWindow
 
 load_dotenv() 
 

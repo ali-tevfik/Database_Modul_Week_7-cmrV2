@@ -2,7 +2,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets,uic
 from PyQt6.QtWidgets import QTableWidgetItem
 import requests
 import sys
-from base_window import BaseWindow
+from Base.base_window import BaseWindow
 
 
 class Interviews(BaseWindow):

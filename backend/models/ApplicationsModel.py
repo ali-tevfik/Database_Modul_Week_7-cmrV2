@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship
-from db import Base  # senin declarative_base'i aldığın yer
+from db.db import Base  # senin declarative_base'i aldığın yer
 
 class Application(Base):
     __tablename__ = "applications"
