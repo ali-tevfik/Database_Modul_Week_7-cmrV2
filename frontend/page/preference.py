@@ -1,12 +1,10 @@
-from PyQt6 import QtCore, QtGui, QtWidgets, uic
-from applicaton import Applications
-from mentor import Mentor
-from Interviews import Interviews
-from session import Session
-from base_window import BaseWindow
-from etkinlik import CalendarApp
-from PyQt6.QtGui import QPixmap
-from PyQt6.QtCore import Qt, pyqtSignal
+from PyQt6 import  QtWidgets, uic
+from page.applicaton import Applications
+from page.mentor import Mentor
+from page.Interviews import Interviews
+from utils.session import Session
+from Base.base_window import BaseWindow
+from page.etkinlik import CalendarApp
 
 
 class PreferenceWindow(BaseWindow):

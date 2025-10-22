@@ -3,10 +3,11 @@ from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt, pyqtSignal
 import threading
 import requests
-from ErrorTypeEnum import  ErrorType, ERROR_MAP, ERROR_TEXT
-from preference import PreferenceWindow
-from base_window import BaseWindow
-from session import Session
+from Enum.ErrorTypeEnum import  ErrorType, ERROR_MAP, ERROR_TEXT
+from page.preference import PreferenceWindow
+from Base.base_window import BaseWindow
+from utils.session import Session
+
 
 
 class Ui_MainWindow(BaseWindow):
@@ -91,7 +92,7 @@ class Ui_MainWindow(BaseWindow):
         url = "http://127.0.0.1:8000/user/login"
         try:
             data = None
-            resp = requests.post(url, json={"username": username, "password": password}, timeout=8)
+            resp = requests.post(url, json={"username": username, "password": password})
             data = resp.json()
 
             if resp.status_code == 200:

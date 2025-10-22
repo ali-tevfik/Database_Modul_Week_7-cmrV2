@@ -1,4 +1,4 @@
-from PyQt6 import QtWidgets, uic
+from PyQt6 import QtWidgets
 
 class BaseWindow(QtWidgets.QMainWindow):
     """
@@ -11,11 +11,11 @@ class BaseWindow(QtWidgets.QMainWindow):
         self.hide()
 
     def go_to_main_menu(self):
-        from preference import PreferenceWindow
+        from page.preference import PreferenceWindow
         self.open_menu(PreferenceWindow)
 
     def go_to_preferences(self):
-        from preference import PreferenceWindow
+        from page.preference import PreferenceWindow
         self.open_menu(PreferenceWindow)
 
     def confirm_exit(self):

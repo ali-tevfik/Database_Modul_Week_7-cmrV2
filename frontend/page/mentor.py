@@ -1,7 +1,7 @@
 import sys
 from PyQt6 import QtWidgets, uic
 import requests
-from base_window import BaseWindow
+from Base.base_window import BaseWindow
 
 
 # 🧭 PyQt6 Arayüzü
