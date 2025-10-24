@@ -19,6 +19,8 @@ load_dotenv()
 
 # -------------------- PyQt6 Uygulaması --------------------
 class Applications(BaseWindow):
+    BASEURL="http://127.0.0.1:8000/applications"
+
     def __init__(self):
         super().__init__()
         uic.loadUi(r".\ui\application.ui", self)
@@ -26,7 +28,7 @@ class Applications(BaseWindow):
         
         # Aktif filtre başlığı
         self.current_filter_title = "Tüm Başvurular"
-        self.send_request("http://127.0.0.1:8000/applications")
+        self.send_request("")
         # ----------------- Buton Bağlantıları -----------------
         self.search_button.clicked.connect(self.search_records)
         self.all_application_button.clicked.connect(self.show_all_records)
@@ -44,8 +46,9 @@ class Applications(BaseWindow):
 
 
     def send_request(self,url):
+        allURL=self.BASEURL+url
         try:
-            resp = requests.get(url, timeout=8)
+            resp = requests.get(allURL, timeout=8)
             data = resp.json()
             self.load_table_data(data)
         except Exception as e:
@@ -66,28 +69,28 @@ class Applications(BaseWindow):
     # ----------------- Arama ve Filtreler -----------------
     def search_records(self):
         query = self.search_edit.text().strip()
-        self.send_request("http://127.0.0.1:8000/applications/searchName/"+ query)
+        self.send_request("/searchName/"+ query)
 
     def show_all_records(self):
-        self.send_request("http://127.0.0.1:8000/applications/getAll")
+        self.send_request("/getAll")
 
     def show_mentor_assigned(self):
-        self.send_request("http://127.0.0.1:8000/applications/showmentor")
+        self.send_request("/showmentor")
 
     def show_mentor_unassigned(self):
-        self.send_request("http://127.0.0.1:8000/applications/ushowmentor")
+        self.send_request("/ushowmentor")
 
     def show_duplicate_records(self):
-        self.send_request("http://127.0.0.1:8000/applications/dublicate")
+        self.send_request("/dublicate")
 
     def show_filtered_applications(self):
-        self.send_request("http://127.0.0.1:8000/applications/fltered")
+        self.send_request("/fltered")
 
     def show_previous_vit(self):
-        self.send_request("http://127.0.0.1:8000/applications/prevvitcheck")
+        self.send_request("/prevvitcheck")
 
     def show_unique_vit_records(self):
-        self.send_request("http://127.0.0.1:8000/applications/differenreg")
+        self.send_request("/differenreg")
 
     # ----------------- Yazdırma -----------------
     def print_table(self, title=""):
