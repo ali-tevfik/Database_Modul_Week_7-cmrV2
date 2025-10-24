@@ -3,7 +3,6 @@ from PyQt6 import QtWidgets, uic
 import requests
 from Base.base_window import BaseWindow
 
-
 # 🧭 PyQt6 Arayüzü
 class Mentor(BaseWindow):
     
@@ -14,7 +13,6 @@ class Mentor(BaseWindow):
         #tableWidget ismi senin UI'daki tabloyla aynı olmalı!
         self.load_table_data()
 
-
         self.btn_search.clicked.connect(self.search_records)
         self.pushButton.clicked.connect(self.show_all_records)   # Tüm görüşmeler butonu
         self.pushButton_3.clicked.connect(self.go_to_preferences)
@@ -24,27 +22,27 @@ class Mentor(BaseWindow):
 
         self.pushButton_2.clicked.connect(self.confirm_exit)  # Kapat butonu
 
-    def send_request(self):
-        url = "http://127.0.0.1:8000/getAllMentor"
+    def send_request(self,url):
+        
         try:
             data = None
             resp = requests.get(url, timeout=8)
             data = resp.json()
-
+            self.update_table(data)
             if resp.status_code == 200:
                 return data
             else:
-                print("Error:")
+                print("Data received from backend:", data)
 
         except Exception as e:
-                print("Error:")
-
+                print("Request failed:", e)
+                return None
 
 
     def load_table_data(self):
-       
-        data =   cursor.execute("Select * from mentor")
-      
+        url = "http://127.0.0.1:8000/mentor"
+        data =  self.send_request(url)
+        print("data burda ",data)
         if not data:
             QtWidgets.QMessageBox.warning(self, "Uyarı", "Google Sheet'ten veri alınamadı.")
             return
@@ -63,40 +61,26 @@ class Mentor(BaseWindow):
                 self.tableWidget.setItem(row, col, QtWidgets.QTableWidgetItem(val))
 
         self.tableWidget.resizeColumnsToContents()
-
+        
         # ComboBox doldurma (6. sütun = index 5)
         self.comboBox.clear()
-        unique_values = sorted({row[list(row.keys())[5]] for row in data if row[list(row.keys())[5]] is not None})
-        self.comboBox.addItems(unique_values)
+        #unique_values = sorted({row[list(row.keys())[5]] for row in data if row[list(row.keys())[5]] is not None})
+        # 'full_name' sütunundaki benzersiz değerleri al
+        unique_values = sorted({row["opinion"] for row in data if "opinion" in row and row["opinion"]})
+
+        self.comboBox.addItems((unique_values))
 
     def show_all_records(self):
         self.update_table(self.df_all)
    
     def search_records(self):
-        """
-        Arama yaparken:
-        - Her zaman orijinal veri listesi (self.df_all) kullanılır.
-        - Bulunan sonuçlar yeni bir listeye eklenir.
-        - update_table() ile tabloya aktarılır.
-        """
+        search_text = self.lineEdit_search.text().strip().lower()
+        url = "http://127.0.0.1:8000/mentor/findName/" + search_text 
+        
+        self.send_request(url)
+    
 
-        # Arama sonucu bulunan veriler
-        findData = []
-
-        # Arama metni
-        search_text = self.lineEdit_search.text().lower()  # küçük harf ile arama
-
-        for row_data in self.df_all:  # self.df_all artık JSON listesi
-            # 3. sütundaki değer (0 tabanlı indeks: 2)
-            keys = list(row_data.keys())
-            val = str(row_data[keys[2]]) if keys[2] in row_data else ""
-
-            if search_text in val.lower():  # kısmi eşleşme
-                # Bulunan satırı findData listesine ekle
-                findData.append(row_data)
-
-        # findData artık JSON listesi, update_table fonksiyonunu JSON ile uyumlu hale getirmek gerekir
-        self.update_table(findData)
+        
     def update_table(self,findData):
             # Tabloyu ilk baasta temizle ve yeni veriyi ekle
             #temizleme
@@ -113,24 +97,13 @@ class Mentor(BaseWindow):
             self.tableWidget.resizeColumnsToContents()
 
     def filter_by_combobox(self):
-            selected_value = self.comboBox.currentText()
-
-            if not selected_value:
-                self.update_table(self.df_all)
-                return
-
-            # 5. sütuna göre filtre uygula
-            # 6. sütun = index 5
-            keys = list(self.df_all[0].keys())  # tüm satırlar aynı yapıda varsayılır
-            column_key = keys[5]  # filtrelenecek sütun adı
-
-            # Filtreleme
-            filtered_data = [row for row in self.df_all if row.get(column_key) == selected_value]
-
-            # Tabloyu güncelle
-            self.update_table(filtered_data)
-
-
+        selected_value = self.comboBox.currentText()
+        if not selected_value:
+            self.fill_table(self.df_all)
+            return
+        url = "http://127.0.0.1:8000/mentor/comboBoxValuesFilter/" + selected_value
+        self.send_request(url)
+       
 
 
 if __name__ == "__main__":
@@ -138,7 +111,6 @@ if __name__ == "__main__":
     window = Mentor()
     window.show()
     sys.exit(app.exec())
-
 
 
 # class MyWindow(QtWidgets.QMainWindow):
@@ -154,3 +126,4 @@ if __name__ == "__main__":
 # window = MyWindow()
 # window.show()
 # sys.exit(app.exec())  # PyQt6 tarzı
+

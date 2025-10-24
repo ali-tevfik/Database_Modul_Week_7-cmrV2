@@ -8,7 +8,7 @@ from sqlalchemy_utils import database_exists, create_database
 
 
 
-DATABASE_URL = "postgresql+psycopg2://postgres:1598@localhost:5432/crm_db"
+DATABASE_URL = "postgresql+psycopg2://postgres:Ness07*@localhost:5432/crm_db"
 
 
 
