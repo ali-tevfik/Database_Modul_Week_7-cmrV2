@@ -1,5 +1,5 @@
 from PyQt6 import  QtWidgets, uic
-from page.applicaton import Applications
+from page.application import Applications
 from page.mentor import Mentor
 from page.Interviews import Interviews
 from utils.session import Session

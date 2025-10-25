@@ -10,6 +10,7 @@ class Application(Base):
     current_status = Column(String, nullable=True)
     wants_IT_training = Column(Boolean, default=False)
     economic_status = Column(String, nullable=True)
+    mentor_interview = Column(Boolean, default=False)
     attending_language_course = Column(Boolean, default=False)
     english_level = Column(String, nullable=True)
     dutch_level = Column(String, nullable=True)
