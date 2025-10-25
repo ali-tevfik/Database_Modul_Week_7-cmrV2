@@ -11,7 +11,10 @@ from config.config import *
 from models.MentorsModel import Mentor
 import time
 from db.db import Base, engine
+<<<<<<< HEAD
 from datetime import datetime, timedelta
+=======
+>>>>>>> e6b0d5ca54454c83aaf84efdac466ef41d6e35ee
 
 vit_headers = [
 "zamandamgasi",	
@@ -38,6 +41,7 @@ vit_headers = [
 ]
 
 
+<<<<<<< HEAD
 def parse_sheet_time(sheet_str: str) -> datetime:
     # Z → UTC
     if sheet_str.endswith("Z"):
@@ -84,6 +88,17 @@ async def checkFile(db):
         add_project_tracking_from_drive(db)
     if db.query(Application).count()== 0:
         print("application starting drive")
+=======
+async def checkFile(db):
+    Base.metadata.create_all(bind=engine)
+    if db.query(User).count()== 0:
+        get_user(db)
+    if db.query(Mentor).count()== 0:
+        add_mentors_from_drive(db)
+    if db.query(ProjectTracking).count()== 0:
+        add_project_tracking_from_drive(db)
+    if db.query(Application).count()== 0:
+>>>>>>> e6b0d5ca54454c83aaf84efdac466ef41d6e35ee
         apply_data = applySheet.get_all_records()
         print("apply starting")
         add_applications_from_drive(db,apply_data)
