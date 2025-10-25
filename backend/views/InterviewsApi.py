@@ -8,8 +8,12 @@ router = APIRouter(prefix="/interviews")
 @router.get("/")
 async def get_all_interviews():
     return interviews_vm.get()
-    # try:
-    #     records = interviewsSheet.get_all_records()
-    #     return records
-    # except:
-    #     raise HTTPException(status_code=401, detail="Error ")
+
+
+@router.get("/project_progress_date")
+async def get_project_progress_date():
+    return interviews_vm.get_project_progress_date()
+
+@router.get("/project_submission_date")
+async def get_project_submission_date():
+    return interviews_vm.get_project_submission_date()

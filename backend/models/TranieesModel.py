@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import declarative_base,        relationship
 from db.db import Base  # senin declarative_base'i aldığın yer
 
@@ -14,4 +14,6 @@ class Trainee(Base):
     application_period = Column(String, nullable=True)
     applications = relationship("Application", back_populates="trainee")
     mentors = relationship("Mentor", back_populates="trainee")
+    updatedTime = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
     project_tracking = relationship("ProjectTracking", back_populates="trainee")

@@ -11,6 +11,7 @@ from config.config import *
 from models.MentorsModel import Mentor
 import time
 from db.db import Base, engine
+from datetime import datetime, timedelta
 
 vit_headers = [
 "zamandamgasi",	
@@ -37,15 +38,52 @@ vit_headers = [
 ]
 
 
+def parse_sheet_time(sheet_str: str) -> datetime:
+    # Z → UTC
+    if sheet_str.endswith("Z"):
+        sheet_str = sheet_str.replace("Z", "+00:00")
+    return datetime.fromisoformat(sheet_str)
+
+
+def clear_outdated_tables(db: Session):
+    # Mapping: (Sheet objesi, Model)
+    print("Checking for outdated tables...")
+    checks = [
+        (LoginSheetTime, User),
+        (interviewsSheetTime, ProjectTracking),
+        (mentorSheetTime, Mentor),
+        (applySheetTime, Application),
+        (vit1SheetTime, Application),
+        (vit2SheetTime, Application),
+    ]
+
+    for sheet, model in checks:
+        db_time_tuple = db.query(model.updatedTime).first()
+        db_time = db_time_tuple[0] if db_time_tuple else None
+
+        if db_time is None or parse_sheet_time(sheet) > db_time:
+            print(f"{model.__tablename__} is outdated → clearing table")
+            db.query(model).delete()
+            db.commit()
+        else:
+            print(f"{model.__tablename__} is up to date")
+
+
 async def checkFile(db):
     Base.metadata.create_all(bind=engine)
+    print("Checking initial data... " )
+    clear_outdated_tables(db)
     if db.query(User).count()== 0:
+        print("user starting(drive)")
         get_user(db)
     if db.query(Mentor).count()== 0:
+        print("mentor starting drive")
         add_mentors_from_drive(db)
     if db.query(ProjectTracking).count()== 0:
+        print("project starting drive")
         add_project_tracking_from_drive(db)
     if db.query(Application).count()== 0:
+        print("application starting drive")
         apply_data = applySheet.get_all_records()
         print("apply starting")
         add_applications_from_drive(db,apply_data)
@@ -84,6 +122,7 @@ def create_user(db: Session, data: dict):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)  
+    
 
     return new_user
 

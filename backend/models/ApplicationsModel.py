@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey,func
 from sqlalchemy.orm import declarative_base, relationship
 from db.db import Base  # senin declarative_base'i aldığın yer
 
@@ -22,4 +22,5 @@ class Application(Base):
     reason_for_participation = Column(String, nullable=True)
     application_period = Column(String, nullable=True)
     Cybersecurity_Powerplatform = Column(String, nullable=True)
+    updatedTime = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     trainee = relationship("Trainee", back_populates="applications")

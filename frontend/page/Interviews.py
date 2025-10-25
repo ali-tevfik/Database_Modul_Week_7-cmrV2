@@ -9,7 +9,7 @@ class Interviews(BaseWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.send_request()
+        self.send_request("")
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -103,17 +103,15 @@ class Interviews(BaseWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        # Pencere açılır açılmaz veri çek
-        self.send_request()
+        # self.send_request("")
         
 
     def submitted_project_bttn(self):
-        match_rows = [data for data in self.alldata if bool(data.get("project_submission_date"))]
-        self.update_table_widget(match_rows)
+        self.send_request("/project_submission_date")
+       
 
     def arrivals_project_bttn(self):
-        match_rows = [data for data in self.alldata if bool(data.get("project_progress_date"))]
-        self.update_table_widget(match_rows)
+        self.send_request("/project_progress_date")
 
 
 
@@ -149,8 +147,8 @@ class Interviews(BaseWindow):
                 for col, value in enumerate(row_data.values()):  # <-- value’ları kullan
                         self.tableWidget.setItem(row, col, QTableWidgetItem(str(value)))
 
-    def send_request(self):
-        url = "http://127.0.0.1:8000/interviews"
+    def send_request(self,restUrl):
+        url = "http://127.0.0.1:8000/interviews" + restUrl
         try:
             resp = requests.get(url, timeout=8)
             data = resp.json()

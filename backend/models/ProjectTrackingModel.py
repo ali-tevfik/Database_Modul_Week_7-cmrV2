@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey,func
 from sqlalchemy.orm import declarative_base, relationship
 from db.db import Base  # senin declarative_base'i aldığın yer
 
@@ -10,5 +10,6 @@ class ProjectTracking(Base):
     trainee_id = Column(Integer, ForeignKey("trainees.trainee_id"), nullable=False)
     project_submission_date = Column(DateTime, nullable=True)
     project_progress_date = Column(DateTime, nullable=True)
+    updatedTime = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
     trainee = relationship("Trainee", back_populates="project_tracking")
