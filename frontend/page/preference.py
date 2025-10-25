@@ -5,14 +5,16 @@ from page.Interviews import Interviews
 from utils.session import Session
 from Base.base_window import BaseWindow
 from page.etkinlik import CalendarApp
+import os
 
 
 class PreferenceWindow(BaseWindow):
     def __init__(self):
         super().__init__()
-        # UI dosyasını yükle
-        uic.loadUi("ui/preferenceadmin.ui", self)
-        
+
+        # ✅ UI dosyasının tam yolu (frontend/ui/preferenceadmin.ui)
+        ui_path = os.path.join(os.path.dirname(__file__), "..", "ui", "preferenceadmin.ui")
+        uic.loadUi(os.path.abspath(ui_path), self)        
         session = Session()
 
         # Role bazlı admin buton görünürlüğü

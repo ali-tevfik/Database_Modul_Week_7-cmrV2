@@ -4,6 +4,7 @@ from views.InterviewsApi import router as interviews_router
 from views.MentorApi import router as mentor_router
 from views.ApplicationsApi import router as applications_router
 from views.CheckFileApi import router as checkFile_router
+from views.MentorApi     import router as mentor_router
 
 app = FastAPI()
 

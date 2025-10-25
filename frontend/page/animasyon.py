@@ -2,6 +2,8 @@ import sys
 from PyQt6 import QtWidgets, uic, QtGui, QtCore
 from Base.base_window import BaseWindow
 from page.login import Ui_MainWindow as LoginWindow
+
+
 import requests
 
 # Thread sınıfı
