@@ -46,7 +46,7 @@ class CreateUser(QtWidgets.QMainWindow):
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    "API/config/vit8-credentials.json", SCOPES
+                    "../backend/config/vit8-credentials.json", SCOPES
                 )
                 creds = flow.run_local_server(port=0)
             with open("token.json", "w") as token:
@@ -258,7 +258,7 @@ class CalendarApp(BaseWindow):
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    "API/config/vit8-credentials.json", SCOPES)
+                    "../backend/config/vit8-credentials.json", SCOPES)
                 creds = flow.run_local_server(port=0)
             with open("token.json", "w") as token:
                 token.write(creds.to_json())

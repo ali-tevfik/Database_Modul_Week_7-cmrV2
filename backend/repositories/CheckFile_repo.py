@@ -206,10 +206,8 @@ def add_mentors_from_drive(db: Session):
         if trainee:
             date_str = row.get('mentorgorusmesi')
             try:
-                # önce gün.ay.yıl formatını dene
                 meeting_date = datetime.strptime(date_str, "%d.%m.%Y")
             except ValueError:
-                # eğer başarısız olursa ay/gün/yıl formatını dene
                 meeting_date = datetime.strptime(date_str, "%m/%d/%Y")
 
             mentor = Mentor(
@@ -227,7 +225,7 @@ def add_mentors_from_drive(db: Session):
             db.refresh(mentor)
 
 def add_project_tracking_from_drive(db: Session):
-    project_data = interviewsSheet.get_all_records()  # Drive’dan veri çekiyoruz
+    project_data = interviewsSheet.get_all_records() 
     for row in project_data:
         trainee = add_trainees_from_drive(
             db,
@@ -239,7 +237,6 @@ def add_project_tracking_from_drive(db: Session):
             row.get('basvurudonemi')
         )
 
-        # Tarihleri kontrol et, boşsa None ata
         submission_date_str = row.get('Proje gonderilis tarihi')
         progress_date_str = row.get('Projenin gelis tarihi')
 

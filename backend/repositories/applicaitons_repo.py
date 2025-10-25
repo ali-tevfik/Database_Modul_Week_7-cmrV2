@@ -45,7 +45,7 @@ def searchText(search_text):
 
         rows = result.mappings().all()  # Mapping formatında sonuç
         data = [dict(row) for row in rows]  # Dict'e çeviriyoruz
-        print("Data fetched successfully:", data)
+        
 
         return data
     
@@ -64,12 +64,9 @@ def getAll():
 
         # Sorguyu çalıştırıyoruz
         result = conn.execute(query)
-        print("Query executed, fetching results...")
 
-        # Sonuçları dict formatına dönüştürüyoruz
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print(f"Data fetched successfully: {len(data)} rows")
 
         return data
 
@@ -99,7 +96,6 @@ def showmentor():
             print("No mentor interview results found")
             return []
 
-        print("Data fetched successfully:", data)
         return data
         
 def ushowmentor():
@@ -126,7 +122,6 @@ def ushowmentor():
             print("No mentor interview results found")
             return []
 
-        print("Data fetched successfully:", data)
         return data
         
 def dublicate():
@@ -155,7 +150,6 @@ def dublicate():
 
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
 
         return data
 

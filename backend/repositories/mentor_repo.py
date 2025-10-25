@@ -20,7 +20,6 @@ def find_mentor_by_name(name: str):
         )
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
         return data
 
 
@@ -42,7 +41,6 @@ INNER JOIN trainees
         # ✅ Row'ları sözlük (dict) haline getiriyoruz
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
         return data
 
 

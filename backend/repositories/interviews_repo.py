@@ -18,7 +18,6 @@ def get_all_users_raw():
         # ✅ Row'ları sözlük (dict) haline getiriyoruz
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
         return data
 
 
@@ -41,7 +40,6 @@ def get_project_submission_date():
         # ✅ Row'ları sözlük (dict) haline getiriyoruz
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
         return data
 
 
@@ -62,5 +60,4 @@ def get_project_progress_date():
         # ✅ Row'ları sözlük (dict) haline getiriyoruz
         rows = result.mappings().all()
         data = [dict(row) for row in rows]
-        print("Data fetched successfully:", data)
         return data
